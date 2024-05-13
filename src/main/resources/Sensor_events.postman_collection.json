@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "227e3072-d453-48ac-bf4f-4a44e25f250e",
+		"name": "Sensor_events",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12106668",
+		"_collection_link": "https://martian-station-743069.postman.co/workspace/Team-Workspace~bc4c4b39-320b-4f58-8e75-cbd1f12382e6/collection/12106668-227e3072-d453-48ac-bf4f-4a44e25f250e?action=share&source=collection_link&creator=12106668"
+	},
+	"item": [
+		{
+			"name": "Get all sensor-events",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/sensor-events/list-all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"sensor-events",
+						"list-all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create sensor event - temperature",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"temperature\",\r\n    \"value\": 25.30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/sensor-events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"sensor-events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create sensor event - pressure",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"pressure\",\r\n    \"value\": 1002\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/sensor-events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"sensor-events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get by id - sensor event - sensor_6",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/sensor-events/sensor_6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"sensor-events",
+						"sensor_6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get by id - sensor event - sensor_12X",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/sensor-events/sensor_1211",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"sensor-events",
+						"sensor_1211"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update by id - sensor_6",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"proximity\",\r\n    \"value\": 12\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/sensor-events/update/sensor_6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"sensor-events",
+						"update",
+						"sensor_6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update by id - sensor_12X",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"proximity\",\r\n    \"value\": 12\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/sensor-events/update/sensor_1211",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"sensor-events",
+						"update",
+						"sensor_1211"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete by id - sensor event",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/sensor-events/6640dd630e9ae307607fcb2c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"sensor-events",
+						"6640dd630e9ae307607fcb2c"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

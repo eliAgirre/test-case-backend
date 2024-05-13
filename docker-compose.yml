@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  mongo_db:
+    image: mongo:5.0.2
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      #- 27017:27017
+      - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
+    volumes:
+      - db:/data/db
+  app:
+    depends_on:
+      - mongo_db
+    build: ./test-case-backend-app
+    restart: on-failure
+    env_file: ./.env
+    ports:
+      #- 8090:8090
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+    environment:
+      SPRING_APPLICATION_JSON: '{
+              "spring.data.mongodb.uri" : "mongodb://localhost:$MONGODB_DOCKER_PORT/$MONGODB_DATABASE"
+            }'
+      volumes:
+        - .m2:/root/.m2
+      stdin_open: true
+      tty: true
+
+  volumes:
+    db:

@@ -1,0 +1,6 @@
+{
+  "sensorId": "sensor_123",
+  "timestamp": "2024-05-11T23:59:44.787",
+  "type": "temperature",
+  "value": 25.3
+}
