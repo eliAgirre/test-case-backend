@@ -1,12 +1,12 @@
 package com.vodafone.springboot.crud.adapters.api;
 
-import com.vodafone.springboot.crud.kafka.producer.MessageProducer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -27,6 +27,8 @@ import com.vodafone.springboot.crud.adapters.api.dto.SensorEventDto;
 import com.vodafone.springboot.crud.utilities.exception.ResourceNotFoundException;
 import com.vodafone.springboot.crud.utilities.enums.SensorTypeEnum;
 import com.vodafone.springboot.crud.adapters.api.dto.SensorEventRqDto;
+import com.vodafone.springboot.crud.kafka.producer.MessageProducer;
+import com.vodafone.springboot.crud.utilities.constants.ConstantsTest;
 
 @ExtendWith(MockitoExtension.class)
 class SensorEventControllerTest {
@@ -77,7 +79,7 @@ class SensorEventControllerTest {
         // Then
         var result = sensorEventController.createSensorEvent(requestDto);
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode(), "status should match");
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode(), ConstantsTest.STATUS_SHOULD_MATCH);
         Mockito.verify(sensorEventService, Mockito.times(1)).create(requestDto);
         Mockito.verify(sensorEventsMapper, Mockito.times(1)).mapModelToRto(model);
 
@@ -110,7 +112,7 @@ class SensorEventControllerTest {
         Assertions.assertNotNull(result);
         Assertions.assertNotEquals(0, result.size());
         Assertions.assertEquals(2, result.size());
-        Assertions.assertEquals("sensor_124", result.get(1).getSensorId());
+        Assertions.assertEquals(ConstantsTest.SENSOR_ID_124, result.get(1).getSensorId());
         Assertions.assertEquals(timestamp, result.get(1).getTimestamp());
         Assertions.assertEquals(SensorTypeEnum.pressure, result.get(1).getType());
         Assertions.assertEquals(1002.0, result.get(1).getValue());
@@ -132,7 +134,7 @@ class SensorEventControllerTest {
         // Then
         var result = sensorEventController.getSensorEventById(sensorId);
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode(), "status should match");
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode(), ConstantsTest.STATUS_SHOULD_MATCH);
         Mockito.verify(sensorEventService, Mockito.times(1)).getById(sensorId);
         Mockito.verify(sensorEventsMapper, Mockito.times(1)).mapModelToRto(model);
     }
@@ -152,7 +154,7 @@ class SensorEventControllerTest {
         // Then
         var result = sensorEventController.updateSensorEvent(sensorId, requestDto);
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode(), "status should match");
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode(), ConstantsTest.STATUS_SHOULD_MATCH);
         Mockito.verify(sensorEventService, Mockito.times(1)).update(sensorId, requestDto);
         Mockito.verify(sensorEventsMapper, Mockito.times(1)).mapModelToRto(model);
     }

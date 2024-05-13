@@ -1,8 +1,6 @@
 package com.vodafone.springboot.crud.utilities.jsonToObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.vodafone.springboot.crud.adapters.api.dto.SensorEventDto;
 import com.vodafone.springboot.crud.adapters.api.dto.SensorEventRqDto;

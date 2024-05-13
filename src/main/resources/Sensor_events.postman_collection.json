@@ -113,7 +113,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8090/api/sensor-events/sensor_1211",
+					"raw": "http://localhost:8090/api/sensor-events/sensor_123",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -122,7 +122,7 @@
 					"path": [
 						"api",
 						"sensor-events",
-						"sensor_1211"
+						"sensor_123"
 					]
 				}
 			},
@@ -174,7 +174,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8090/api/sensor-events/update/sensor_1211",
+					"raw": "http://localhost:8090/api/sensor-events/update/sensor_123",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -184,7 +184,7 @@
 						"api",
 						"sensor-events",
 						"update",
-						"sensor_1211"
+						"sensor_123"
 					]
 				}
 			},
@@ -196,7 +196,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8090/api/sensor-events/6640dd630e9ae307607fcb2c",
+					"raw": "http://localhost:8090/api/sensor-events/sensor_126",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -205,7 +205,7 @@
 					"path": [
 						"api",
 						"sensor-events",
-						"6640dd630e9ae307607fcb2c"
+						"sensor_126"
 					]
 				}
 			},

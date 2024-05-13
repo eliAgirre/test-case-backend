@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.Assertions;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ import com.vodafone.springboot.crud.adapters.api.dto.SensorEventRqDto;
 import com.vodafone.springboot.crud.domain.model.SensorEventModel;
 import com.vodafone.springboot.crud.utilities.enums.SensorTypeEnum;
 import com.vodafone.springboot.crud.utilities.exception.ResourceNotFoundException;
+import com.vodafone.springboot.crud.utilities.constants.ConstantsTest;
 
 @ExtendWith(MockitoExtension.class)
 class SensorEventServiceImplTest {
@@ -73,13 +75,13 @@ class SensorEventServiceImplTest {
         // When
         Mockito.when(sensorEventMapper.mapRqDtoToDto(requestDto)).thenReturn(dto);
         Mockito.when(sensorEventMapper.mapDtoToModel(dto)).thenReturn(model);
-        Mockito.when(sequenceGeneratorService.generateSequence("users_sequence")).thenReturn("sensor_123");
+        Mockito.when(sequenceGeneratorService.generateSequence(ConstantsTest.SEQ_NAME)).thenReturn(ConstantsTest.SENSOR_ID_123);
         Mockito.when(sensorEventRepository.save(model)).thenReturn(model);
 
         // Then
         var result = sensorEventService.create(requestDto);
         Assertions.assertNotNull(result);
-        Assertions.assertEquals("sensor_123", result.getSensorId());
+        Assertions.assertEquals(ConstantsTest.SENSOR_ID_123, result.getSensorId());
         Assertions.assertEquals(SensorTypeEnum.temperature, result.getType());
         Assertions.assertEquals(25.3, result.getValue());
     }
@@ -107,7 +109,7 @@ class SensorEventServiceImplTest {
         Assertions.assertNotNull(result);
         Assertions.assertNotEquals(0, result.size());
         Assertions.assertEquals(2, result.size());
-        Assertions.assertEquals("sensor_124", result.get(1).getSensorId());
+        Assertions.assertEquals(ConstantsTest.SENSOR_ID_124, result.get(1).getSensorId());
         Assertions.assertEquals(timestamp, result.get(1).getTimestamp());
         Assertions.assertEquals(SensorTypeEnum.pressure, result.get(1).getType());
         Assertions.assertEquals(1002.0, result.get(1).getValue());
@@ -118,8 +120,8 @@ class SensorEventServiceImplTest {
         getService();
 
         // Given
-        String sensorId = "sensor_123";
         SensorEventModel model = json.testSensorEventModel();
+        String sensorId = model.getSensorId();
 
         // When
         Mockito.when(sensorEventRepository.findById(sensorId)).thenReturn(Optional.ofNullable(model));
@@ -159,8 +161,8 @@ class SensorEventServiceImplTest {
         getService();
 
         // Given
-        String sensorId = "sensor_124";
         SensorEventModel model2 = json.testSensorEventModel2();
+        String sensorId = model2.getSensorId();
 
         // Then
         Mockito.when(sensorEventRepository.findById(sensorId)).thenReturn(Optional.ofNullable(model2));
@@ -181,13 +183,13 @@ class SensorEventServiceImplTest {
         // When
         Mockito.when(sensorEventMapper.mapRqDtoToDto(requestDto)).thenReturn(dto);
         Mockito.when(sensorEventMapper.mapDtoToModel(dto)).thenReturn(model);
-        Mockito.when(sequenceGeneratorService.generateSequence("users_sequence")).thenReturn("sensor_123");
+        Mockito.when(sequenceGeneratorService.generateSequence(ConstantsTest.SEQ_NAME)).thenReturn(ConstantsTest.SENSOR_ID_123);
         Mockito.when(sensorEventRepository.save(model)).thenReturn(model);
 
         // Then
         var result = sensorEventService.create(requestDto);
         Assertions.assertNotNull(result);
-        Assertions.assertEquals("sensor_123", result.getSensorId());
+        Assertions.assertEquals(ConstantsTest.SENSOR_ID_123, result.getSensorId());
         Assertions.assertEquals(SensorTypeEnum.temperature, result.getType());
         Assertions.assertEquals(25.3, result.getValue());
         return result;

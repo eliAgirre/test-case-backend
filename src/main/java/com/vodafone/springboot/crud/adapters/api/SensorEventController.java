@@ -24,7 +24,7 @@ public class SensorEventController {
 
     private final SensorEventService sensorEventService;
     private final SensorEventsMapperImpl sensorEventMapper;
-    private MessageProducer messageProducer;
+    private final MessageProducer messageProducer;
 
     public SensorEventController(SensorEventService sensorEventService,
                                  SensorEventsMapperImpl sensorEventMapper,

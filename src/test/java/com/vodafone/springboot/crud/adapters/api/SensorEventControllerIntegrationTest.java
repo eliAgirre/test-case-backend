@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.vodafone.springboot.crud.Application;
+import com.vodafone.springboot.crud.utilities.constants.ConstantsTest;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -26,11 +28,10 @@ public class SensorEventControllerIntegrationTest {
 
     @Test
     public void test_createSensorEvent() throws Exception {
-        String requestBody = "{ \"type\": \"temperature\", \"value\": 25.30 }";
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/sensor-events")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(ConstantsTest.BASE_MAPPING_ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
+                .content(ConstantsTest.REQUEST_BODY_TEST_INT))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
@@ -39,11 +40,10 @@ public class SensorEventControllerIntegrationTest {
 
     @Test
     public void test_getSensorEventById() throws Exception {
-        String requestBodyPost = "{ \"type\": \"temperature\", \"value\": 25.30 }";
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/sensor-events")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(ConstantsTest.BASE_MAPPING_ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBodyPost))
+                .content(ConstantsTest.REQUEST_BODY_TEST_INT))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
@@ -51,7 +51,7 @@ public class SensorEventControllerIntegrationTest {
         String responseBody = mvcResult.getResponse().getContentAsString();
         String sensorId = getSensorIdFromRespBody(responseBody);
 
-        MvcResult mvcResultGet = mockMvc.perform(MockMvcRequestBuilders.get("/api/sensor-events/{id}", sensorId)
+        MvcResult mvcResultGet = mockMvc.perform(MockMvcRequestBuilders.get(ConstantsTest.BASE_MAPPING_ENDPOINT+"/{id}", sensorId)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
@@ -62,11 +62,10 @@ public class SensorEventControllerIntegrationTest {
 
     @Test
     public void test_updateSensorEventById() throws Exception {
-        String requestBodyPost = "{ \"type\": \"temperature\", \"value\": 25.30 }";
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/sensor-events")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(ConstantsTest.BASE_MAPPING_ENDPOINT)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBodyPost))
+                        .content(ConstantsTest.REQUEST_BODY_TEST_INT))
                         .andExpect(MockMvcResultMatchers.status().isOk())
                         .andReturn();
 
@@ -77,7 +76,7 @@ public class SensorEventControllerIntegrationTest {
 
         String requestBodyPut = "{ \"type\": \"proximity\", \"value\": 12 }";
 
-        MvcResult mvcResultUpdated = mockMvc.perform(MockMvcRequestBuilders.put("/api/sensor-events/update/{id}", sensorId)
+        MvcResult mvcResultUpdated = mockMvc.perform(MockMvcRequestBuilders.put(ConstantsTest.BASE_MAPPING_ENDPOINT+"/update/{id}", sensorId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBodyPut))
                         .andExpect(MockMvcResultMatchers.status().isOk())
@@ -88,13 +87,11 @@ public class SensorEventControllerIntegrationTest {
 
     @Test
     public void test_deleteSensorEventById() throws Exception {
-        String requestBodyPost = "{ \"type\": \"temperature\", \"value\": 25.30 }";
-
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/sensor-events")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(ConstantsTest.BASE_MAPPING_ENDPOINT)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBodyPost))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn();
+                        .content(ConstantsTest.REQUEST_BODY_TEST_INT))
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andReturn();
 
         // Extract JSON response body
         String responseBody = mvcResult.getResponse().getContentAsString();
@@ -102,7 +99,7 @@ public class SensorEventControllerIntegrationTest {
         System.out.println("get id: "+sensorId
                 +" and details: "+responseBody);
 
-        MvcResult mvcResultDeleted = mockMvc.perform(MockMvcRequestBuilders.delete("/api/sensor-events/{id}", sensorId)
+        MvcResult mvcResultDeleted = mockMvc.perform(MockMvcRequestBuilders.delete(ConstantsTest.BASE_MAPPING_ENDPOINT+"/{id}", sensorId)
                         .contentType(MediaType.APPLICATION_JSON))
                         .andExpect(MockMvcResultMatchers.status().isOk())
                         .andReturn();

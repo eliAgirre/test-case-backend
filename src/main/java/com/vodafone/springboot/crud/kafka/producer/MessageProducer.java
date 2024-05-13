@@ -6,7 +6,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 @Component
 public class MessageProducer {
 
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     public MessageProducer(KafkaTemplate<String, String> kafkaTemplate){
         this.kafkaTemplate = kafkaTemplate;
