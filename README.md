@@ -467,7 +467,9 @@ public class SensorEventController {
 }
 ```
 
-Una vez que se ejecute la aplicación de Java con Spring Boot, tenemos que tener la terminal en marcha con el comando `.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties` (inicializado Zookeeper) y `.\bin\windows\kafka-server-start.bat .\config\server.properties` (inicializado Kafka) para ver los mensajes que se producen en el terminal desde cualquier IDE. Si se quiere visualizar los mensajes desde el CMD o PowerShell simplemente hay que ejecutar el comando `.\bin\windows\kafka-console-consumer.bat --topic sensor_events --bootstrap-server localhost:9092`.
+Una vez que se ejecute la aplicación de Java con Spring Boot, tenemos que tener la terminal en marcha con el comando `.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties` (inicializado Zookeeper) y `.\bin\windows\kafka-server-start.bat .\config\server.properties` (inicializado Kafka) para ver los mensajes que se producen en el terminal desde cualquier IDE. 
+
+Si se quiere visualizar los mensajes desde el CMD o PowerShell simplemente hay que ejecutar el comando `.\bin\windows\kafka-console-consumer.bat --topic sensor_events --bootstrap-server localhost:9092`.
 
 ## Lista de dependencias
 
