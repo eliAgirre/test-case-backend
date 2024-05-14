@@ -55,7 +55,7 @@ public class SensorEventController {
     public ResponseEntity<SensorEventDto> createSensorEvent(@Valid @RequestBody SensorEventRqDto sensorEventRqDto) {
         SensorEventModel model = sensorEventService.create(sensorEventRqDto);
         SensorEventDto rsDto = getRsDto(model);
-        //messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getSensorId());
+        messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getSensorId());
         return ResponseEntity.ok(rsDto);
     }
 

@@ -329,6 +329,40 @@ Apache Kafka crea eventos de un registro para saber las acciones que han sucedid
 
 Kafka permite que se publiquen las secuencias de datos o eventos que se suscriban, almacenan los registros y procesa los datos en tiempo real (lo produce).
 
+Primero hay que instalar Apache Kafka para que funcionen las colas de mensajes. Para ello hay que ir a la página oficial de [Apache Kafka](https://kafka.apache.org/quickstart) y descargar el fichero con la extensión `.tgz`. Una vez descargado, se extrae, la carpeta de Kafka se renombra y se mueve a la raíz del disco duro.
+
+Una vez movido la carpeta llamada `Kafka`, hay que modificar los ficheros de configuración de la ruta `C:\Kafka\config`. Hay que modificar en el caso de Windows los ficheros `server.properties` y `zookeeper.properties`.
+
+En el fichero `server.properties` hay que editar la ruta de los logs, en este caso se ha puesto la ruta `log.dirs=C:/Kafka/kafka-logs`.
+
+En el fichero `zookeeper.properties` hay que editar la ruta de data dir, en este caso se ha puesto la ruta `dataDir=C:/Kafka/zookeeper-data`.
+
+Una vez modificado esos ficheros hay que ejecutar como Administrador el terminal cmd o Powershell los siguientes comandos:
+
+```txt
+
+- Inicia Zookeeper:
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+- Inicia Kafka:
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+- Crea un nuevo topic en el servidor de kafka:
+.\bin\windows\kafka-topics.bat --create --topic sensor_events --bootstrap-server localhost:9092
+
+- Decribe los detalles de un topic:
+.\bin\windows\kafka-topics.bat --describe --topic sensor_events --bootstrap-server localhost:9092
+
+- Listar todos los topics que existen dentro del broker:
+.\bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+
+- Inicia una consola para ver mensajes de un topic específico:
+.\bin\windows\kafka-console-consumer.bat --topic sensor_events --bootstrap-server localhost:9092
+
+- Inicia una consola para enviar mensajes a un topic específico:
+.\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic sensor_events
+```
+
 La configuración de Kafka en `application.properties`:
 
 ```properties
@@ -432,6 +466,8 @@ public class SensorEventController {
     }
 }
 ```
+
+Una vez que se ejecute la aplicación de Java con Spring Boot, tenemos que tener la terminal en marcha con el comando `.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties` (inicializado Zookeeper) y `.\bin\windows\kafka-server-start.bat .\config\server.properties` (inicializado Kafka) para ver los mensajes que se producen en el terminal desde cualquier IDE. Si se quiere visualizar los mensajes desde el CMD o PowerShell simplemente hay que ejecutar el comando `.\bin\windows\kafka-console-consumer.bat --topic sensor_events --bootstrap-server localhost:9092`.
 
 ## Lista de dependencias
 
