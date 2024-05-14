@@ -363,6 +363,17 @@ Una vez modificado esos ficheros hay que ejecutar como Administrador el terminal
 .\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic sensor_events
 ```
 
+Añadir la dependencia en la aplicación del `pom.xml`:
+
+```pom
+<dependency>
+    <groupId>org.springframework.kafka</groupId>
+    <artifactId>spring-kafka</artifactId>
+    <version>3.0.4</version>
+</dependency>
+```
+
+
 La configuración de Kafka en `application.properties`:
 
 ```properties
@@ -485,3 +496,4 @@ Si se quiere visualizar los mensajes desde el CMD o PowerShell simplemente hay q
 | Springdoc OpenApi              | Sirve para documentar los endpoints, y así se puede probar y exportar para el equipo de front. |
 | Jackson Datatype Joda          |        Instancia de ObjectMapper para serializar respuestas y deserializar solicitudes.        |
 | Common io                      |         Convierte JSON a objetos y admite una fácil conversión a Map desde datos JSON.         |
+| Spring Kafka                   |                               Se usa para las colas de mensajes.                               |

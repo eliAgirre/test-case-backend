@@ -103,8 +103,6 @@
 		<org.springdoc.version>2.3.0</org.springdoc.version>
 		<commons-io.version>2.11.0</commons-io.version>
 		<spring.kafka.version>3.0.4</spring.kafka.version>
-		<kafka.clients.version>3.3.2</kafka.clients.version>
-		<kafka.test.containers.version>1.14.3</kafka.test.containers.version>
 	</properties>
 
 	<build>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.vodafone.springboot.crud.adapters.api.dto.SensorEventDto;
 import com.vodafone.springboot.crud.adapters.api.dto.SensorEventRqDto;
@@ -55,7 +56,12 @@ public class SensorEventController {
     public ResponseEntity<SensorEventDto> createSensorEvent(@Valid @RequestBody SensorEventRqDto sensorEventRqDto) {
         SensorEventModel model = sensorEventService.create(sensorEventRqDto);
         SensorEventDto rsDto = getRsDto(model);
-        messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getSensorId());
+        if(!Objects.isNull(rsDto)){
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getSensorId());
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getTimestamp().toString());
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getType().toString());
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getValue().toString());
+        }
         return ResponseEntity.ok(rsDto);
     }
 
