@@ -56,12 +56,7 @@ public class SensorEventController {
     public ResponseEntity<SensorEventDto> createSensorEvent(@Valid @RequestBody SensorEventRqDto sensorEventRqDto) {
         SensorEventModel model = sensorEventService.create(sensorEventRqDto);
         SensorEventDto rsDto = getRsDto(model);
-        if(!Objects.isNull(rsDto)){
-            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getSensorId());
-            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getTimestamp().toString());
-            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getType().toString());
-            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getValue().toString());
-        }
+        sendMessageKafka(rsDto);
         return ResponseEntity.ok(rsDto);
     }
 
@@ -89,5 +84,14 @@ public class SensorEventController {
 
     private SensorEventDto getRsDto(SensorEventModel model){
         return sensorEventMapper.mapModelToRto(model);
+    }
+
+    private void sendMessageKafka(SensorEventDto rsDto){
+        if(!Objects.isNull(rsDto)){
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getSensorId());
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getTimestamp().toString());
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getType().toString());
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getValue().toString());
+        }
     }
 }

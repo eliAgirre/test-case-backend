@@ -280,6 +280,14 @@ Los ficheros json están en la carpeta `test`, en la carpeta `java`, en la carpe
 
 Se han creado los tests para las clases `SensorEventServiceImpl` y `SensorEventController`. Se ha usado para realizar los tests `junit.jupiter` y `mockito`.
 
+### Test de integración - Controller
+
+Se ha realizado el test de integración del controller y para ello antes hay que ejecutar Kafka.
+
+Hay que ejecutar el comando `.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties` (inicializado Zookeeper) y `.\bin\windows\kafka-server-start.bat .\config\server.properties` (inicializado Kafka) tanto en CMD, en PowerShell o en otro terminal.
+
+Una vez arrancado Kafka, ya se pueden ejecutar los tests de integración.
+
 ## Dockerfile y docker-compose
 
 Es un archivo de texto simple con un conjunto de comandos o instrucciones para realizar acciones en la imagen base a crear, ejemplo del `Dockerfile`:
@@ -472,8 +480,17 @@ public class SensorEventController {
     public ResponseEntity<SensorEventDto> createSensorEvent(@Valid @RequestBody SensorEventRqDto sensorEventRqDto) {
         SensorEventModel model = sensorEventService.create(sensorEventRqDto);
         SensorEventDto rsDto = getRsDto(model);
-        messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getSensorId());
+        sendMessageKafka(rsDto);
         return ResponseEntity.ok(rsDto);
+    }
+
+    private void sendMessageKafka(SensorEventDto rsDto){
+        if(!Objects.isNull(rsDto)){
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getSensorId());
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getTimestamp().toString());
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getType().toString());
+            messageProducer.sendMessage(Constants.KAFKA_TOPIC, rsDto.getValue().toString());
+        }
     }
 }
 ```
